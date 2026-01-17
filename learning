@@ -6,6 +6,30 @@
 Main entry point of your application where you create the root of this application
 
 -Install tailwind css
+-install diasy ui tailwind css plugin 
+-create seprate navbar component 
+-Install react router dom (routing done at the root/top of application)
+-
+
+create browserRouter ? Routes =/ Body > BodyChildren
+-Create an Outlet in your body component
+-Create Footer
+-create browser router > routes >Route ? RouteChildren
+-Create Outlet in body components
+
+
+
+
+
+
+
+Body
+
+    NavBar
+    Route =/ =>Feed
+    Route =/login => login
+    Route =/connections =>Connections
+    Route =/profile => Profiles
 
 
 
