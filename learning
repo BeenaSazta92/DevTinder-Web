@@ -16,7 +16,15 @@ create browserRouter ? Routes =/ Body > BodyChildren
 -Create Footer
 -create browser router > routes >Route ? RouteChildren
 -Create Outlet in body components
-
+-Create a login page
+-Install axios
+-CORS- install cors in backend => add middleware to with configuration : origin, credentials :true
+- Whenever you are making API call to pass axios =>{withcredentials:true}
+-Install react-redux + @redux/toolkit 
+-ConfigureStore => Provider =>CreateSlice => add reducer to store
+-NavBae should update as soon as user logged in 
+Refactor code and creae constant file
+-Create component folder and add move all component files inside component folder to restructure 
 
 
 
