@@ -25,6 +25,11 @@ create browserRouter ? Routes =/ Body > BodyChildren
 -NavBae should update as soon as user logged in 
 Refactor code and creae constant file
 -Create component folder and add move all component files inside component folder to restructure 
+-Restrict user to access other routes without login
+-If token is not present redirect to login
+-Logout
+-Profile
+
 
 
 
