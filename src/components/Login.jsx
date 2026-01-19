@@ -13,17 +13,20 @@ const Login = () => {
   const dispatch = useDispatch() // useDispatch is a hook given by redux to store data in redux
   const navigate = useNavigate();//hook for navigate user=== provided by react router dom
   const [error, SetError] = useState();
+  const [loading, setLoading] = useState(false);
   const handelLogin = async ()=>{
+    setLoading(true);
     try{
-      const user = await axios.post(`${BASE_URL}login`,{
+      const user = await axios.post(`${BASE_URL}/login`,{
         emailId,
         password
       },{withCredentials:true} // need to set this to get and set token in cookies // read documenetion once
       )
-      dispatch(addUser(user?.data))
+      dispatch(addUser(user?.data?.data))
+      setLoading(false)
       return navigate('/')
     }catch (err){
-      console.log('error =======',err)
+      setLoading(false);
       SetError(err?.response?.data || 'Invalid Creddentials')
     }
   }
@@ -60,6 +63,15 @@ const Login = () => {
               <p className='text-red-500'>{error}</p>
             </div>
           )} 
+          {loading && (
+            <div className="flex flex-col items-center gap-2">
+                <div
+                    className="radial-progress animate-spin text-primary"
+                    style={{ "--value": loading, width: "4rem", height: "4rem" }}
+                >
+                </div>
+            </div>
+          )}
           <div className="card-actions justify-center">
             <button className="btn btn-primary" onClick={handelLogin}>Login</button>
           </div>

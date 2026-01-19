@@ -10,11 +10,11 @@ import { addUser } from '../utils/userSlice'
 export const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userData = useSelector((store)=>store.user); // access user data from store
+  const user = useSelector((store)=>store.user); // access user data from store
   const fetchUser = async()=>{
-    if(userData) return;
+    if(user) return
     try{
-      const user =  await axios.get(`${BASE_URL}profile/view`,{
+      const user =  await axios.get(`${BASE_URL}/profile/view`,{
         withCredentials:true
       })
       dispatch(addUser(user?.data));
