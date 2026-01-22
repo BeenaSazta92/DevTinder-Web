@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addUser } from '../utils/userSlice'
 
 export const Body = () => {
+  const user = useSelector((store)=>store.user); // access user data from store
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((store)=>store.user); // access user data from store
+
   const fetchUser = async()=>{
-    if(user) return
     try{
       const user =  await axios.get(`${BASE_URL}/profile/view`,{
         withCredentials:true

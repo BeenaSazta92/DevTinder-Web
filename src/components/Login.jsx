@@ -10,10 +10,14 @@ const Login = () => {
 
   const [emailId, setEmailId]= useState(""); // create state
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName]= useState(""); // create state
+  const [lastName, setLastName] = useState("");
   const dispatch = useDispatch() // useDispatch is a hook given by redux to store data in redux
   const navigate = useNavigate();//hook for navigate user=== provided by react router dom
   const [error, SetError] = useState();
   const [loading, setLoading] = useState(false);
+  const [isLoginForm, setIsLoginForm] = useState(true);
+
   const handelLogin = async ()=>{
     setLoading(true);
     try{
@@ -30,13 +34,58 @@ const Login = () => {
       SetError(err?.response?.data || 'Invalid Creddentials')
     }
   }
+  const handleSignup = async ()=>{
+    setLoading(true);
+    try{
+      const user = await axios.post(`${BASE_URL}/signup`,
+        {
+          firstName,
+          lastName,
+          emailId,
+          password
+        },
+        {withCredentials:true}
+      )
+      dispatch(addUser(user?.data?.data))
+      return navigate('/profile')
+    }catch (err){
+      setLoading(false);
+      setIsLoginForm(true);
+      SetError(err?.response?.data || 'Signup Failed')
+    }
+  }
 
   return (
     <div className='flex justify-center my-10'>
       <div className="card bg-base-300 w-96 shadow-sm">
         <div className="card-body">
-          <h2 className="card-title justify-center ">Login</h2>
+          <h2 className="card-title justify-center ">{isLoginForm?'Login':'Signup'}</h2>
           <div>
+            {!isLoginForm && (
+              <>
+              <fieldset className="fieldset my-2">
+                <legend className="fieldset-legend">First Name</legend>
+                <input 
+                  type="text"
+                  value={firstName}
+                  className="input"
+                  placeholder="First Name"
+                  onChange={(e)=>setFirstName(e.target.value)}// as soon input value is changing , chnagimg variable value its known as binding your state variable to ur ui component 
+                  />
+              </fieldset>
+              <fieldset className="fieldset my-2">
+                <legend className="fieldset-legend">Last Name</legend>
+                <input
+                  type="text"
+                  value ={lastName}
+                  className="input"
+                  placeholder="Last Name"
+                  onChange={(e)=>setLastName(e.target.value)}
+                  />
+              </fieldset>
+              </>
+            )}
+
             <fieldset className="fieldset my-2">
               <legend className="fieldset-legend">Email ID</legend>
               <input 
@@ -73,8 +122,9 @@ const Login = () => {
             </div>
           )}
           <div className="card-actions justify-center">
-            <button className="btn btn-primary" onClick={handelLogin}>Login</button>
+            <button className="btn btn-primary" onClick={()=>isLoginForm?handelLogin():handleSignup()}>{isLoginForm?'Login':'SignUp'}</button>
           </div>
+          <p className='m-auto cursor-pointer p-2' onClick={()=>setIsLoginForm((value)=>!value)}>{isLoginForm?'New User? Signup Here':'Existing User? Login Here'}</p>
         </div>
       </div>
     </div>

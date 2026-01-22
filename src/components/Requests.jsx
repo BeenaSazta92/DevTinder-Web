@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BASE_URL } from '../utils/constant';
-import { addRequests } from '../utils/requestSlice';
+import { addRequests, removeRequests } from '../utils/requestSlice';
 
 const Requests = () => {
     const dispatch = useDispatch();
@@ -16,6 +16,20 @@ const Requests = () => {
             dispatch(addRequests(res?.data?.data))
         }catch (err){
             console.log('ERROR :',err)
+        }
+    }
+
+    const reviewConnectionReq = async(status,_id)=>{
+        try{
+            const res = await axios.post(`${BASE_URL}/request/review/${status}/${_id}`,{},
+                {
+                    withCredentials: true
+                }
+            )
+            dispatch(removeRequests(_id))
+
+        }catch(err){
+            console.log('Error : ',err)
         }
     }
 
@@ -41,8 +55,8 @@ const Requests = () => {
                                 {age&& gender &&<p>{age + ', ' +gender}</p>}
                             </div>
                             <div >
-                                <button className="mx-2 btn btn-active btn-primary btn-sm">Reject</button>
-                                <button className="mx-2 btn btn-active btn-secondary btn-sm">Accept</button>
+                                <button className="mx-2 btn btn-active btn-primary btn-sm" onClick={()=>reviewConnectionReq('rejected',request?._id)}>Reject</button>
+                                <button className="mx-2 btn btn-active btn-secondary btn-sm" onClick={()=>reviewConnectionReq('accepted',request?._id)}>Accept</button>
                             </div>
                         </div>
                     })}

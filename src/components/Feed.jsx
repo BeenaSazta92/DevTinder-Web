@@ -24,9 +24,15 @@ const Feed = () => {
   },[])
 
   return (
-    feed&&
+    
     <div className='flex justify-center my-10'>
-      <UserCard user={feed[0]}/>
+      {feed && feed.length>0 ? (
+         <UserCard user={feed[0]}/>
+      ) : (
+        <div>
+          <h3>No Users Found</h3>
+        </div>
+      )}
     </div>
   )
 }

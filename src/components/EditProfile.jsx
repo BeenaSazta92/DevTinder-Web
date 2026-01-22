@@ -9,12 +9,12 @@ import { BASE_URL } from '../utils/constant';
 import { addUser } from '../utils/userSlice';
 
 const EditProfile = ({user}) => {
-    const [firstName, setFirstName]= useState(user?.firstName); // create state
-    const [lastName, setLastName] = useState(user?.lastName);
-    const [age, setAge]= useState(user?.age); // create state
-    const [gender, setGender] = useState(user?.gender);
-    const [about, setAbout] = useState(user?.about);
-    const [profileUrl, setProfileUrl] = useState(user?.profileUrl);
+    const [firstName, setFirstName]= useState(user?.firstName ?? ''); // create state
+    const [lastName, setLastName] = useState(user?.lastName ?? '');
+    const [age, setAge]= useState(user?.age ?? ''); // create state
+    const [gender, setGender] = useState(user?.gender ?? '');
+    const [about, setAbout] = useState(user?.about || '');
+    const [profileUrl, setProfileUrl] = useState(user?.profileUrl || '');
     const dispatch = useDispatch() // useDispatch is a hook given by redux to store data in redux
     const navigate = useNavigate();//hook for navigate user=== provided by react router dom
     const [error, SetError] = useState();
@@ -86,8 +86,8 @@ const EditProfile = ({user}) => {
                             </fieldset>
                             <fieldset className="fieldset my-2">
                                 <legend className="fieldset-legend">Gender</legend>
-                               
                                 <select value={gender} className="select" onChange={(e)=>setGender(e.target.value)}>
+                                    <option value="" >select gender</option>
                                     <option value="male">male</option>
                                     <option value ='female'>female</option>
                                     <option value ='others'>others</option>

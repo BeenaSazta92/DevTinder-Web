@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { BASE_URL } from '../utils/constant'
 import { useDispatch, useSelector } from 'react-redux'
 import { addConnections } from '../utils/connectionSlice'
-
+import { Link } from 'react-router-dom'
 const Connections = () => {
     const dispatch = useDispatch();
     const connections = useSelector((store)=>store.connections)
@@ -31,15 +31,19 @@ const Connections = () => {
                 <div className="justify-center gap-4">
                     <h1 className='text-bold text-3xl text-white'>Connections</h1>
                     {connections.map((connection,i)=>{
-                        const {firstName,lastName,profileUrl,age,gender,about} = connection
+                        const {_id,firstName,lastName,profileUrl,age,gender,about} = connection
                         return <div key={i} className="flex rounded-lg bg-base-300 p-4 m-4 w 1/2 mx-auto">
                             <div>
-                                <img className = 'w-20 h-20 rounded-full' alt='photo' src={profileUrl} /></div>
+                                <img className = 'w-20 h-20 rounded-full object-cover' alt='photo' src={profileUrl} />
+                            </div>
                             <div className='text-left mx-4'>
                                 <h2 className='font-bold text-xl'>{firstName + " "+ lastName} </h2>
                                 <h2>{about}</h2>
                                 {age&& gender &&<p>{age + ', ' +gender}</p>}
                             </div>
+                            <Link to={`/chat/${_id}`}>
+                                <button className='btn btn-primary self-center ml-auto'>Chat</button>
+                            </Link>
                         </div>
                     })}
                 </div>

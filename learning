@@ -28,7 +28,14 @@ Refactor code and creae constant file
 -Restrict user to access other routes without login
 -If token is not present redirect to login
 -Logout Functionality
--Profile
+-Profile view/edit
+-Fetch feeds and add/remove from store
+-Module -All connection page
+-Module to see all connection requests
+-Accept/ignore connection reques
+-Send/ignore connection Request
+-Signup
+
 
 
 

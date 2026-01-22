@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React from 'react'
 import {useDispatch, useSelector} from 'react-redux' // get user from redux store
 import { Link, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../utils/constant';
 import {removeUser} from '../utils/userSlice'
 import { removeFeed } from '../utils/feedSlice';
+import { removeConnection } from '../utils/connectionSlice';
+import { removeRequests } from '../utils/requestSlice';
 axios.defaults.withCredentials = true;
 
 const NavBar = () => {
@@ -17,7 +18,9 @@ const NavBar = () => {
         withCredentials:true
       })
       dispatch(removeUser());
-      dispatch(removeFeed())
+      dispatch(removeFeed());
+      dispatch(removeConnection());
+      dispatch(removeRequests());
       return navigate('/login')
     }catch (err){
       console.log('Error ',err)
@@ -51,7 +54,7 @@ const NavBar = () => {
               </li>
               <li><Link to='/connections'>Connections</Link></li>
               <li><Link to ='/requests'>Request</Link></li>
-              <li><Link onClick={handelLogout}>Logout</Link></li>
+              <li><Link onClick={()=>handelLogout()}>Logout</Link></li>
 
             </ul>
           </div>
